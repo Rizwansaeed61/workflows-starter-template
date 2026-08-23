@@ -5,9 +5,12 @@ import { siteConfig } from "@/content/site-config";
 import { prisma } from "@/lib/db/prisma";
 
 export async function generateMetadata() {
-  const page = await prisma.legalPage.findUnique({
-    where: { slug: "privacy" },
-  });
+  let page: any = null;
+  try {
+    page = await prisma.legalPage.findUnique({
+      where: { slug: "privacy" },
+    });
+  } catch {}
 
   return {
     title: page?.seoTitle || page?.title || "Privacy Policy | Rizwan Saeed",
@@ -21,9 +24,12 @@ export async function generateMetadata() {
 }
 
 export default async function PrivacyPage() {
-  const page = await prisma.legalPage.findUnique({
-    where: { slug: "privacy" },
-  });
+  let page: any = null;
+  try {
+    page = await prisma.legalPage.findUnique({
+      where: { slug: "privacy" },
+    });
+  } catch {}
 
   const title = page?.title || "Privacy Policy";
   const badgeText = page?.badgeText || "Legal Document";

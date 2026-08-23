@@ -5,9 +5,12 @@ import { siteConfig } from "@/content/site-config";
 import { prisma } from "@/lib/db/prisma";
 
 export async function generateMetadata() {
-  const page = await prisma.legalPage.findUnique({
-    where: { slug: "terms" },
-  });
+  let page: any = null;
+  try {
+    page = await prisma.legalPage.findUnique({
+      where: { slug: "terms" },
+    });
+  } catch {}
 
   return {
     title: page?.seoTitle || page?.title || "Terms of Service | Rizwan Saeed",
@@ -21,9 +24,12 @@ export async function generateMetadata() {
 }
 
 export default async function TermsPage() {
-  const page = await prisma.legalPage.findUnique({
-    where: { slug: "terms" },
-  });
+  let page: any = null;
+  try {
+    page = await prisma.legalPage.findUnique({
+      where: { slug: "terms" },
+    });
+  } catch {}
 
   const title = page?.title || "Terms of Service";
   const badgeText = page?.badgeText || "Legal Document";
