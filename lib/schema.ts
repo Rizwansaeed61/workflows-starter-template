@@ -10,6 +10,11 @@ export function getPersonSchema() {
     "url": siteConfig.url,
     "sameAs": [
       siteConfig.linkedin,
+      siteConfig.facebook,
+      siteConfig.instagram,
+      siteConfig.youtube,
+      siteConfig.github,
+      siteConfig.tiktok,
       siteConfig.whatsappUrl
     ],
     "email": siteConfig.email,
