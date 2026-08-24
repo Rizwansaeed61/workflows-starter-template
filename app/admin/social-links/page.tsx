@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PageHeader } from "@/components/admin/PageHeader";
 import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/content/site-config";
 import {
   CheckCircle2,
   Save,
@@ -18,27 +19,48 @@ import {
   Globe,
   Github,
   Video,
+  Loader2,
 } from "lucide-react";
 
 export default function AdminSocialLinksCMSPage() {
   const [formData, setFormData] = useState({
-    facebook: "https://www.facebook.com/RIZWANSAEED610",
-    instagram: "https://www.instagram.com/rizwansaeed612",
-    linkedin: "https://linkedin.com/in/rizwansaeed610",
-    youtube: "https://youtube.com/@RizwanSaddique1",
-    twitter: "https://twitter.com/rizwansaeed",
-    dribbble: "https://dribbble.com/rizwansaeed",
-    tiktok: "https://www.tiktok.com/@rizwansaddique610",
-    github: "https://github.com/Rizwansaeed61",
-    email: "Hello@RizwanSaddique.site",
-    phone: "+92 306 4402649",
-    whatsappUrl:
-      "https://wa.me/923064402649?text=Hi%20Rizwan,%20I'd%20like%20to%20discuss%20a%20digital%20growth%20project.",
+    facebook: siteConfig.facebook,
+    instagram: siteConfig.instagram,
+    linkedin: siteConfig.linkedin,
+    youtube: siteConfig.youtube,
+    twitter: siteConfig.twitter,
+    dribbble: siteConfig.dribbble,
+    tiktok: siteConfig.tiktok,
+    github: siteConfig.github,
+    email: siteConfig.email,
+    phone: siteConfig.phone,
+    whatsappUrl: siteConfig.whatsappUrl,
     location: "Multan, Pakistan (Serving UAE, USA & UK Clients)",
   });
 
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    async function loadLinks() {
+      try {
+        const res = await fetch("/api/admin/social-links");
+        const json = await res.json();
+        if (json?.data) {
+          setFormData((prev) => ({
+            ...prev,
+            ...json.data,
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to load social links", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadLinks();
+  }, []);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,9 +68,22 @@ export default function AdminSocialLinksCMSPage() {
     setSuccess(false);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 600));
-      setSuccess(true);
-      setTimeout(() => setSuccess(false), 3500);
+      const res = await fetch("/api/admin/social-links", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 4000);
+      } else {
+        alert(data.error || "Failed to save");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error saving social links.");
     } finally {
       setSaving(false);
     }
@@ -62,17 +97,24 @@ export default function AdminSocialLinksCMSPage() {
       />
 
       {success && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center gap-2 text-sm font-bold animate-fade-in">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 flex items-center gap-2 text-sm font-bold animate-fade-in shadow-xs">
           <CheckCircle2 className="h-5 w-5 text-emerald-600 flex-shrink-0" />
-          <span>Social links and contact channels updated successfully!</span>
+          <span>Social links and contact channels updated successfully in Supabase!</span>
         </div>
       )}
 
       <form onSubmit={handleSave} className="space-y-8">
         <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-2xs">
-          <div className="flex items-center gap-2 pb-4 border-b border-slate-100">
-            <Share2 className="h-5 w-5 text-teal-700" />
-            <h2 className="text-lg font-bold text-slate-900 font-serif">Social & Contact Channels</h2>
+          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <Share2 className="h-5 w-5 text-teal-700" />
+              <h2 className="text-lg font-bold text-slate-900 font-serif">Social & Contact Channels</h2>
+            </div>
+            {loading && (
+              <span className="text-xs text-slate-400 flex items-center gap-1 font-mono">
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-teal-600" /> Syncing...
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -150,7 +192,7 @@ export default function AdminSocialLinksCMSPage() {
               />
             </div>
 
-            {/* Dribbble */}
+            {/* Dribbble / Portfolio */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                 <Globe className="h-4 w-4 text-pink-500" />
@@ -168,7 +210,7 @@ export default function AdminSocialLinksCMSPage() {
             {/* TikTok */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Video className="h-4 w-4 text-slate-900" />
+                <Video className="h-4 w-4 text-purple-600" />
                 TikTok Profile URL
               </label>
               <input
@@ -190,11 +232,12 @@ export default function AdminSocialLinksCMSPage() {
                 type="text"
                 value={formData.github}
                 onChange={(e) => setFormData({ ...formData, github: e.target.value })}
+                placeholder="https://github.com/yourhandle"
                 className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-xs text-slate-900 focus:border-teal-600 focus:outline-none font-mono"
               />
             </div>
 
-            {/* WhatsApp */}
+            {/* WhatsApp Direct Link */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                 <MessageSquare className="h-4 w-4 text-emerald-600" />
@@ -208,10 +251,10 @@ export default function AdminSocialLinksCMSPage() {
               />
             </div>
 
-            {/* Email */}
+            {/* Public Email Address */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Mail className="h-4 w-4 text-teal-700" />
+                <Mail className="h-4 w-4 text-teal-600" />
                 Public Email Address
               </label>
               <input
@@ -225,21 +268,21 @@ export default function AdminSocialLinksCMSPage() {
             {/* Phone */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Phone className="h-4 w-4 text-slate-700" />
+                <Phone className="h-4 w-4 text-teal-600" />
                 Phone / Call Line
               </label>
               <input
                 type="text"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-xs text-slate-900 focus:border-teal-600 focus:outline-none font-mono"
+                className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-xs text-slate-900 focus:border-teal-600 focus:outline-none"
               />
             </div>
 
             {/* Location */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <Globe className="h-4 w-4 text-teal-700" />
+                <Globe className="h-4 w-4 text-teal-600" />
                 Location Text
               </label>
               <input
@@ -252,11 +295,23 @@ export default function AdminSocialLinksCMSPage() {
           </div>
         </div>
 
-        {/* Submit Actions */}
-        <div className="flex items-center justify-end gap-4 pt-4 border-t border-slate-200">
-          <Button type="submit" variant="primary" size="lg" isLoading={saving}>
-            <Save className="h-4 w-4 mr-2" />
-            Save Social Links
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            disabled={saving}
+            className="px-6 py-3 bg-[#00897b] hover:bg-[#00796b] text-white font-bold text-sm rounded-lg flex items-center gap-2 shadow-sm transition-all"
+          >
+            {saving ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Saving to Supabase...</span>
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                <span>Save Social Links</span>
+              </>
+            )}
           </Button>
         </div>
       </form>
