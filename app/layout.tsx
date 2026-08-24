@@ -105,7 +105,7 @@ export const metadata: Metadata = {
     description:
       "Helping businesses generate qualified leads, scale online sales and build measurable digital growth systems.",
   },
-  robots: {
+    robots: {
     index: true,
     follow: true,
     googleBot: {
@@ -115,6 +115,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "Zh4tYoog9XBv2zEwF16mLJewg0NaUSwPcI5XbDASyBI",
   },
 };
 
