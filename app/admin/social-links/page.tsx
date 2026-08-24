@@ -22,14 +22,14 @@ import {
 
 export default function AdminSocialLinksCMSPage() {
   const [formData, setFormData] = useState({
-    facebook: "https://facebook.com/rizwansaeed",
-    instagram: "https://instagram.com/rizwansaeed",
+    facebook: "https://www.facebook.com/RIZWANSAEED610",
+    instagram: "https://www.instagram.com/rizwansaeed612",
     linkedin: "https://linkedin.com/in/rizwansaeed610",
-    youtube: "https://youtube.com/@rizwansaeed",
+    youtube: "https://youtube.com/@RizwanSaddique1",
     twitter: "https://twitter.com/rizwansaeed",
     dribbble: "https://dribbble.com/rizwansaeed",
-    tiktok: "https://tiktok.com/@rizwansaeed",
-    github: "https://github.com/rizwansaeed",
+    tiktok: "https://www.tiktok.com/@rizwansaddique610",
+    github: "https://github.com/Rizwansaeed61",
     email: "Hello@RizwanSaddique.site",
     phone: "+92 306 4402649",
     whatsappUrl:

@@ -14,8 +14,8 @@ export async function GET() {
       prisma.profile.findFirst(),
     ]);
 
-    const notesRaw: any[] = await prisma.$queryRawUnsafe("SELECT * FROM notes;").catch(() => []);
-    const notes = notesRaw.map((n) => ({
+    const notesRaw = (await prisma.$queryRawUnsafe("SELECT * FROM notes;").catch(() => [])) as any[];
+    const notes = notesRaw.map((n: any) => ({
       ...n,
       id: typeof n.id === "bigint" ? Number(n.id) : n.id,
     }));
