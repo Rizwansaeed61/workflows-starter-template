@@ -1,0 +1,313 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-09-10T20:55:00.000Z",
+  "containerVersion": {
+    "path": "accounts/6329957069/containers/238494477/versions/0",
+    "accountId": "6329957069",
+    "containerId": "238494477",
+    "container": {
+      "path": "accounts/6329957069/containers/238494477",
+      "accountId": "6329957069",
+      "containerId": "238494477",
+      "name": "Rizwan Saeed Portfolio",
+      "publicId": "GTM-526Z6DN7",
+      "usageContext": [
+        "WEB"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "1",
+        "name": "Conversion Linker (VIP Clean)",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "true"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "2",
+        "name": "Google Tag - GA4 Config (G-M26DCLKV2W)",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "G-M26DCLKV2W"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "3",
+        "name": "GA4 Event - Generate Lead (Form Submit)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-M26DCLKV2W"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "generate_lead"
+          }
+        ],
+        "firingTriggerId": [
+          "10"
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "4",
+        "name": "GA4 Event - WhatsApp Click (Unified)",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-M26DCLKV2W"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "whatsapp_click"
+          }
+        ],
+        "firingTriggerId": [
+          "11",
+          "12"
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "5",
+        "name": "GA4 Event - Book Strategy Call Click",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-M26DCLKV2W"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "book_strategy_call_click"
+          }
+        ],
+        "firingTriggerId": [
+          "13"
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "tagId": "6",
+        "name": "GA4 Event - Phone Call Click",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "G-M26DCLKV2W"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "phone_call_click"
+          }
+        ],
+        "firingTriggerId": [
+          "14"
+        ]
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "triggerId": "10",
+        "name": "Custom Event - Contact Form Submit",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "contact_form_submit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "triggerId": "11",
+        "name": "Custom Event - WhatsApp Click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "whatsapp_click"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "triggerId": "12",
+        "name": "Click - WhatsApp Link (wa.me)",
+        "type": "LINK_CLICK",
+        "filter": [
+          {
+            "type": "CONTAINS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click URL}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "wa.me"
+              }
+            ]
+          }
+        ],
+        "autoEventFilter": [
+          {
+            "type": "ALWAYS_EVALUATE"
+          }
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "triggerId": "13",
+        "name": "Custom Event - Book Strategy Call",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "book_strategy_call_click"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "triggerId": "14",
+        "name": "Click - Telephone Number",
+        "type": "LINK_CLICK",
+        "filter": [
+          {
+            "type": "CONTAINS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{Click URL}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "tel:"
+              }
+            ]
+          }
+        ],
+        "autoEventFilter": [
+          {
+            "type": "ALWAYS_EVALUATE"
+          }
+        ]
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "type": "CLICK_URL",
+        "name": "Click URL"
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "type": "CLICK_TEXT",
+        "name": "Click Text"
+      },
+      {
+        "accountId": "6329957069",
+        "containerId": "238494477",
+        "type": "CLICK_CLASSES",
+        "name": "Click Classes"
+      }
+    ]
+  }
+}
