@@ -8,7 +8,7 @@ interface GoogleTrackingProps {
 
 export function GoogleTracking({ gtmId, gaId, googleAdsId }: GoogleTrackingProps) {
   const effectiveGtmId = gtmId || process.env.NEXT_PUBLIC_GTM_ID || "GTM-526Z6DN7";
-  const effectiveGaId = gaId || process.env.NEXT_PUBLIC_GA4_ID;
+  const effectiveGaId = gaId || process.env.NEXT_PUBLIC_GA4_ID || "G-M26DCLKV2W";
   const effectiveAdsId = googleAdsId || process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 
   return (
@@ -28,22 +28,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       )}
 
-      {/* Direct GA4 & Google Ads gtag.js fallback */}
-      {!effectiveGtmId && (effectiveGaId || effectiveAdsId) && (
+      {/* Google Analytics 4 (GA4) Script */}
+      {effectiveGaId && (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${effectiveGaId || effectiveAdsId}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${effectiveGaId}`}
             strategy="afterInteractive"
           />
           <Script
-            id="google-gtag-init"
+            id="google-analytics-init"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                ${effectiveGaId ? `gtag('config', '${effectiveGaId}', { page_path: window.location.pathname });` : ""}
+                gtag('config', '${effectiveGaId}', {
+                  page_path: window.location.pathname,
+                });
                 ${effectiveAdsId ? `gtag('config', '${effectiveAdsId}');` : ""}
               `,
             }}
