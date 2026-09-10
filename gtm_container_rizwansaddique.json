@@ -1,6 +1,6 @@
 {
   "exportFormatVersion": 2,
-  "exportTime": "2026-09-10T20:55:00.000Z",
+  "exportTime": "2026-09-10T20:58:00.000Z",
   "containerVersion": {
     "path": "accounts/6329957069/containers/238494477/versions/0",
     "accountId": "6329957069",
@@ -96,8 +96,7 @@
           }
         ],
         "firingTriggerId": [
-          "11",
-          "12"
+          "11"
         ]
       },
       {
@@ -119,29 +118,7 @@
           }
         ],
         "firingTriggerId": [
-          "13"
-        ]
-      },
-      {
-        "accountId": "6329957069",
-        "containerId": "238494477",
-        "tagId": "6",
-        "name": "GA4 Event - Phone Call Click",
-        "type": "gaawe",
-        "parameter": [
-          {
-            "type": "TEMPLATE",
-            "key": "measurementIdOverride",
-            "value": "G-M26DCLKV2W"
-          },
-          {
-            "type": "TEMPLATE",
-            "key": "eventName",
-            "value": "phone_call_click"
-          }
-        ],
-        "firingTriggerId": [
-          "14"
+          "12"
         ]
       }
     ],
@@ -198,35 +175,6 @@
         "accountId": "6329957069",
         "containerId": "238494477",
         "triggerId": "12",
-        "name": "Click - WhatsApp Link (wa.me)",
-        "type": "LINK_CLICK",
-        "filter": [
-          {
-            "type": "CONTAINS",
-            "parameter": [
-              {
-                "type": "TEMPLATE",
-                "key": "arg0",
-                "value": "{{Click URL}}"
-              },
-              {
-                "type": "TEMPLATE",
-                "key": "arg1",
-                "value": "wa.me"
-              }
-            ]
-          }
-        ],
-        "autoEventFilter": [
-          {
-            "type": "ALWAYS_EVALUATE"
-          }
-        ]
-      },
-      {
-        "accountId": "6329957069",
-        "containerId": "238494477",
-        "triggerId": "13",
         "name": "Custom Event - Book Strategy Call",
         "type": "CUSTOM_EVENT",
         "customEventFilter": [
@@ -244,35 +192,6 @@
                 "value": "book_strategy_call_click"
               }
             ]
-          }
-        ]
-      },
-      {
-        "accountId": "6329957069",
-        "containerId": "238494477",
-        "triggerId": "14",
-        "name": "Click - Telephone Number",
-        "type": "LINK_CLICK",
-        "filter": [
-          {
-            "type": "CONTAINS",
-            "parameter": [
-              {
-                "type": "TEMPLATE",
-                "key": "arg0",
-                "value": "{{Click URL}}"
-              },
-              {
-                "type": "TEMPLATE",
-                "key": "arg1",
-                "value": "tel:"
-              }
-            ]
-          }
-        ],
-        "autoEventFilter": [
-          {
-            "type": "ALWAYS_EVALUATE"
           }
         ]
       }
@@ -293,20 +212,8 @@
       {
         "accountId": "6329957069",
         "containerId": "238494477",
-        "type": "CLICK_URL",
-        "name": "Click URL"
-      },
-      {
-        "accountId": "6329957069",
-        "containerId": "238494477",
-        "type": "CLICK_TEXT",
-        "name": "Click Text"
-      },
-      {
-        "accountId": "6329957069",
-        "containerId": "238494477",
-        "type": "CLICK_CLASSES",
-        "name": "Click Classes"
+        "type": "EVENT",
+        "name": "Event"
       }
     ]
   }
