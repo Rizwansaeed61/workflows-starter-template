@@ -9,6 +9,7 @@ import {
   Montserrat,
 } from "next/font/google";
 import "./globals.css";
+import { GoogleTracking } from "@/components/seo/GoogleTracking";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getPersonSchema, getProfessionalServiceSchema, getWebSiteSchema } from "@/lib/schema";
 import { siteConfig } from "@/content/site-config";
@@ -132,6 +133,7 @@ export default function RootLayout({
         <JsonLd data={[getPersonSchema(), getProfessionalServiceSchema(), getWebSiteSchema()]} />
       </head>
       <body suppressHydrationWarning className="font-sans antialiased bg-warm-50 text-slate-900 min-h-screen flex flex-col selection:bg-emerald-200 selection:text-emerald-900">
+        <GoogleTracking />
         <SiteLayout>{children}</SiteLayout>
       </body>
     </html>
